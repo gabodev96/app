@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+table {
+  border-collapse: collapse;
+  width: 50%;
+  font-size: small;
+  margin-top: 10px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 20px;
+}
+
+th {
+  background-color: #612866;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+form input[type="submit"] {
+  margin-top: 10px;
+}
