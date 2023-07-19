@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import swal from "sweetalert";
+import { FaSearch } from "react-icons/fa";
 
 function App() {
   const [records, setRecords] = useState([]);
   const [pdfFile, setPdfFile] = useState(null);
   const [pdfFileContent, setPdfFileContent] = useState(null);
   const [searchValue, setSearchValue] = useState("");
+  const [file, setFile] = useState(null);
+
+  const handleChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
   // Load records from localStorage when component mounts
   useEffect(() => {
@@ -146,17 +152,7 @@ function App() {
   }, [pdfFile, recordValue, expirationDateValue]);
 
   return (
-    <div className="flex flex-col items-center bg-green-800 h-screen">
-      <label>
-        <span className="bg-white text-black font-extrabold p-4">
-          Subir pdf
-        </span>
-        <input
-          type="file"
-          accept="application/pdf"
-          onChange={handleFileChange}
-        />
-      </label>
+    <div className="flex flex-col items-center bg-gray-300 h-screen">
       <br />
       <form onSubmit={handleSubmit}>
         <label>
@@ -164,40 +160,55 @@ function App() {
           <input
             type="text"
             name="record"
-            className="text-black"
+            className="text-black bg-gray-200 ml-1 rounded"
             value={recordValue}
             onChange={(event) => setRecordValue(event.target.value)}
           />
         </label>
         <br />
-        <label>
-          Fecha de expiración:
-          <input
-            type="date"
-            name="expirationDate"
-            min={getCurrentDate()}
-            value={expirationDateValue}
-            onChange={(event) => setExpirationDateValue(event.target.value)}
-          />
-        </label>
+        <div className="flex flex-col">
+          <label>
+            <span className="bg-red-500 hover:bg-red-400 text-black font-semibold p-2">
+              Subir pdf
+            </span>
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={handleFileChange}
+            />
+          </label>
+          <label>
+            Fecha de expiración:
+            <input
+              type="date"
+              name="expirationDate"
+              min={getCurrentDate()}
+              value={expirationDateValue}
+              onChange={(event) => setExpirationDateValue(event.target.value)}
+            />
+          </label>
+        </div>
         <br />
+
         <input
           type="submit"
-          value="Enviar"
+          value="Guardar"
           disabled={!isFormValid}
-          className="bg-red-500 rounded-md text-black  p-2"
+          className="bg-red-500 hover:bg-red-400 text-black font-semibold p-2"
         />
       </form>
       <br />
-      <label>
-        Buscar
+      <label className="bg-white flex justify-end">
+        <h1 className="bg-green-500 uppercase p-3">Buscar</h1>
+        <FaSearch size={30} className="absolute mt-2 pr-1" />
         <input
           type="text"
-          className=" text-black border-black border-2"
           value={searchValue}
+          className="rounded-2xl ml-2"
           onChange={(event) => setSearchValue(event.target.value)}
         />
       </label>
+
       <table className="">
         <thead>
           <tr>
@@ -222,7 +233,7 @@ function App() {
               <td>
                 {record.pdfFiles.length > 0 && (
                   <a
-                    className="bg-green-500 rounded-md w-2 hover:bg-green-700"
+                    className="bg-green-500 hover:bg-green-400 text-black font-semibold p-2"
                     href={record.pdfFiles[0].content}
                     download={record.pdfFiles[0].name}
                   >
@@ -232,7 +243,7 @@ function App() {
               </td>
               <td>
                 <button
-                  className="bg-red-500 rounded-md hover:bg-red-700"
+                  className="bg-red-500 hover:bg-red-400 text-black font-semibold p-2"
                   onClick={() => handleDeleteRecord(index)}
                 >
                   Eliminar

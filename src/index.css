@@ -2,22 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+form {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+input {
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 14px;
+}
+
+input[type="file"]::file-selector-button {
+  display: none;
+}
 table {
   border-collapse: collapse;
-  width: 50%;
-  font-size: small;
-  margin-top: 10px;
+  width: 80%;
+
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 th,
 td {
-  text-align: left;
-  padding: 20px;
+  padding: 0.5rem;
+  background-color: white;
+  border: 1px solid #ccc;
 }
 
 th {
-  background-color: #612866;
-  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+td {
+  text-align: center;
 }
 
 @media screen and (max-width: 600px) {
@@ -26,20 +54,4 @@ th {
     overflow-x: auto;
     white-space: nowrap;
   }
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-form label {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-form input[type="submit"] {
-  margin-top: 10px;
 }
