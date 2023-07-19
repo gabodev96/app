@@ -167,8 +167,8 @@ function App() {
         </label>
         <br />
         <div className="flex flex-col">
-          <label>
-            <span className="bg-red-500 hover:bg-red-400 text-black font-semibold p-2">
+          <label className="mt-3 lg:mt-0">
+            <span className="bg-red-500  hover:cursor-pointer hover:bg-red-400 text-black font-semibold p-2">
               Subir pdf
             </span>
             <input
@@ -194,7 +194,7 @@ function App() {
           type="submit"
           value="Guardar"
           disabled={!isFormValid}
-          className="bg-red-500 hover:bg-red-400 text-black font-semibold p-2"
+          className="bg-red-500 hover:cursor-pointer hover:bg-red-400 text-black font-semibold p-2"
         />
       </form>
       <br />
@@ -233,7 +233,7 @@ function App() {
               <td>
                 {record.pdfFiles.length > 0 && (
                   <a
-                    className="bg-green-500 hover:bg-green-400 text-black font-semibold p-2"
+                    className="bg-green-500 hover:cursor-pointer hover:bg-green-400 text-black font-semibold p-2"
                     href={record.pdfFiles[0].content}
                     download={record.pdfFiles[0].name}
                   >
