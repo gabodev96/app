@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import swal from "sweetalert";
-import { FaSearch } from "react-icons/fa";
+
+import { Form } from "./components/Form";
+import { Searchbar } from "./components/Searchbar";
+import { Table } from "./components/Table";
 
 function App() {
   const [records, setRecords] = useState([]);
@@ -152,107 +155,25 @@ function App() {
   }, [pdfFile, recordValue, expirationDateValue]);
 
   return (
-    <div className="flex flex-col items-center bg-gray-300 h-screen">
+    <div className="flex flex-col items-center bg-blue-400 h-screen">
       <br />
-      <form onSubmit={handleSubmit}>
-        <label>
-          Nombre del registro:
-          <input
-            type="text"
-            name="record"
-            className="text-black bg-gray-200 ml-1 rounded"
-            value={recordValue}
-            onChange={(event) => setRecordValue(event.target.value)}
-          />
-        </label>
-        <br />
-        <div className="flex flex-col">
-          <label className="mt-3 lg:mt-0">
-            <span className="bg-red-500  hover:cursor-pointer hover:bg-red-400 text-black font-semibold p-2">
-              Subir pdf
-            </span>
-            <input
-              type="file"
-              accept="application/pdf"
-              onChange={handleFileChange}
-            />
-          </label>
-          <label>
-            Fecha de expiración:
-            <input
-              type="date"
-              name="expirationDate"
-              min={getCurrentDate()}
-              value={expirationDateValue}
-              onChange={(event) => setExpirationDateValue(event.target.value)}
-            />
-          </label>
-        </div>
-        <br />
-
-        <input
-          type="submit"
-          value="Guardar"
-          disabled={!isFormValid}
-          className="bg-red-500 hover:cursor-pointer hover:bg-red-400 text-black font-semibold p-2"
-        />
-      </form>
+      <Form
+        handleSubmit={handleSubmit}
+        isFormValid={isFormValid}
+        handleFileChange={handleFileChange}
+        getCurrentDate={getCurrentDate}
+        expirationDateValue={expirationDateValue}
+        setExpirationDateValue={setExpirationDateValue}
+        setRecordValue={setRecordValue}
+      />
       <br />
-      <label className="bg-white flex justify-end">
-        <h1 className="bg-green-500 uppercase p-3">Buscar</h1>
-        <FaSearch size={30} className="absolute mt-2 pr-1" />
-        <input
-          type="text"
-          value={searchValue}
-          className="rounded-2xl ml-2"
-          onChange={(event) => setSearchValue(event.target.value)}
-        />
-      </label>
+      <Searchbar searchValue={searchValue} setSearchValue={setSearchValue} />
 
-      <table className="">
-        <thead>
-          <tr>
-            <th>Nombre del registro</th>
-            <th>Vencimiento</th>
-            <th>Días hasta el vencimiento</th>
-            <th>Descargar PDF</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredRecords.map((record, index) => (
-            <tr key={index}>
-              <td>{record.record}</td>
-              <td>{record.expirationDate}</td>
-              <td
-                className="text-2xl font-extrabold"
-                style={getDaysUntilExpirationStyle(record.daysUntilExpiration)}
-              >
-                {record.daysUntilExpiration}
-              </td>
-              <td>
-                {record.pdfFiles.length > 0 && (
-                  <a
-                    className="bg-green-500 hover:cursor-pointer hover:bg-green-400 text-black font-semibold p-2"
-                    href={record.pdfFiles[0].content}
-                    download={record.pdfFiles[0].name}
-                  >
-                    Descargar
-                  </a>
-                )}
-              </td>
-              <td>
-                <button
-                  className="bg-red-500 hover:bg-red-400 text-black font-semibold p-2"
-                  onClick={() => handleDeleteRecord(index)}
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table
+        filteredRecords={filteredRecords}
+        handleDeleteRecord={handleDeleteRecord}
+        getDaysUntilExpirationStyle={getDaysUntilExpirationStyle}
+      />
     </div>
   );
 }

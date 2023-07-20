@@ -27,9 +27,11 @@ input[type="file"]::file-selector-button {
 table {
   border-collapse: collapse;
   width: 80%;
-
+  overflow: hidden;
   margin-top: 2rem;
   margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px;
 }
 
 th,
